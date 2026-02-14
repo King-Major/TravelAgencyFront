@@ -1,76 +1,80 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
-import { Menu, X, Globe } from 'lucide-react'; // Ensure lucide-react is installed
+import { Menu, X, MapPin, Plane } from 'lucide-react';
 
 const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
-  // Helper to close menu when a link is clicked
-  const closeMenu = () => setMobileMenuOpen(false);
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const closeMenu = () => setIsOpen(false);
+
+  // Check if we are on the home page for transparent nav effect
+  const isHome = location.pathname === '/';
+  
+  // Dynamic classes based on scroll/page
+  const navClass = scrolled || !isHome 
+    ? "bg-white/95 backdrop-blur-md shadow-sm py-3" 
+    : "bg-transparent py-5";
+    
+  const textClass = scrolled || !isHome ? "text-slate-900" : "text-white";
 
   return (
-    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${navClass}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center">
           
-          {/* Logo Section */}
-          <Link to="/" className="flex items-center space-x-2" onClick={closeMenu}>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Globe className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              SpeedUp Agency
-            </span>
+          {/* LOGO */}
+          <Link to="/" className="flex items-center space-x-2 group" onClick={closeMenu}>
+             <div className="relative">
+                <MapPin className={`w-8 h-8 ${scrolled || !isHome ? 'text-orange-600' : 'text-orange-500'} transition-colors`} />
+                <Plane className={`w-4 h-4 absolute top-0 -right-1 ${textClass}`} />
+             </div>
+             <div className="flex flex-col">
+                <span className={`font-black text-xl tracking-tighter leading-none ${textClass}`}>SPEEDUP</span>
+                <span className={`text-[10px] font-bold tracking-widest ${scrolled || !isHome ? 'text-slate-500' : 'text-white/80'}`}>TRAVELS & TOURS</span>
+             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavHashLink smooth to="/#flights" className="text-gray-700 hover:text-blue-600 transition">Flights</NavHashLink>
-            <NavHashLink smooth to="/#tours" className="text-gray-700 hover:text-blue-600 transition">Tours</NavHashLink>
-            <NavHashLink smooth to="/#hotels" className="text-gray-700 hover:text-blue-600 transition">Hotels</NavHashLink>
-            <Link to="/visa-info" className="text-gray-700 hover:text-blue-600 transition font-medium">Visa Info</Link>
-            <NavHashLink smooth to="/#contact" className="text-gray-700 hover:text-blue-600 transition">Contact</NavHashLink>
+            <NavHashLink smooth to="/flights" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Flights</NavHashLink>
+            <NavHashLink smooth to="/hotels" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Hotels</NavHashLink>
+            <NavHashLink smooth to="/tours" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Tours</NavHashLink>
+            <Link to="/visa-info" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Visa Info</Link>
             
             <NavHashLink smooth to="/#contact">
-              <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium">
-                Get Started
+              <button className="px-6 py-2.5 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-full font-bold text-sm shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all">
+                Plan My Trip
               </button>
             </NavHashLink>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 rounded-md text-gray-700"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {/* MOBILE MENU TOGGLE */}
+          <button onClick={() => setIsOpen(!isOpen)} className={`md:hidden ${textClass}`}>
+            {isOpen ? <X className="w-8 h-8 text-slate-900" /> : <Menu className="w-8 h-8" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 animate-in slide-in-from-top duration-300">
-          <div className="flex flex-col space-y-4 p-6">
-            <NavHashLink smooth to="/#flights" onClick={closeMenu} className="text-lg text-gray-700 hover:text-blue-600 transition">
-              Flights
-            </NavHashLink>
-            <NavHashLink smooth to="/#tours" onClick={closeMenu} className="text-lg text-gray-700 hover:text-blue-600 transition">
-              Tours
-            </NavHashLink>
-            <NavHashLink smooth to="/#hotels" onClick={closeMenu} className="text-lg text-gray-700 hover:text-blue-600 transition">
-              Hotels
-            </NavHashLink>
-            <Link to="/visa-info" onClick={closeMenu} className="text-lg text-gray-700 hover:text-blue-600 transition font-medium">
-              Visa Info
-            </Link>
-            <NavHashLink smooth to="/#contact" onClick={closeMenu} className="text-lg text-gray-700 hover:text-blue-600 transition">
-              Contact
-            </NavHashLink>
-            
+      {/* MOBILE MENU */}
+      {isOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 animate-in slide-in-from-top-5">
+          <div className="flex flex-col p-6 space-y-4">
+            <NavHashLink smooth to="/#flights" onClick={closeMenu} className="text-lg font-semibold text-slate-800">Flights</NavHashLink>
+            <NavHashLink smooth to="/#hotels" onClick={closeMenu} className="text-lg font-semibold text-slate-800">Hotels</NavHashLink>
+            <NavHashLink smooth to="/#tours" onClick={closeMenu} className="text-lg font-semibold text-slate-800">Tours</NavHashLink>
+            <Link to="/visa-info" onClick={closeMenu} className="text-lg font-semibold text-slate-800">Visa Info</Link>
             <NavHashLink smooth to="/#contact" onClick={closeMenu}>
-              <button className="w-full mt-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium shadow-md">
+              <button className="w-full mt-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-bold">
                 Get Started
               </button>
             </NavHashLink>
