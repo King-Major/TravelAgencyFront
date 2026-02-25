@@ -3,6 +3,8 @@ import { Plane, Calendar, Clock, ArrowRight, Search, Filter } from 'lucide-react
 import ContactForm from '../components/ContactForm';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
+// Define the WhatsApp number here
+const WHATSAPP_NUMBER = "2347031199713";
 
 const Flights = () => {
   const [flights, setFlights] = useState([]);
@@ -13,6 +15,7 @@ const Flights = () => {
       .then(r => r.json())
       .then(data => {
         setFlights(data.data || []);
+        console.log(data)
         setLoading(false);
       })
       .catch(err => {
@@ -20,6 +23,20 @@ const Flights = () => {
         setLoading(false);
       });
   }, []);
+
+  // Helper function to generate the dynamic WhatsApp link
+  const generateWhatsAppLink = (flight) => {
+    const message = `Hello, I'm interested in booking a flight. Here are the details:\n\n` +
+      `✈️ *Airline:* ${flight.airline || 'N/A'}\n` +
+      `📍 *Route:* ${flight.from} to ${flight.to}\n` +
+      `📅 *Date:* ${flight.date || 'N/A'}\n` +
+      `🕒 *Time:* ${flight.departureTime} - ${flight.arrivalTime}\n` +
+      `💰 *Price:* ₦${flight.price ? flight.price.toLocaleString() : 'N/A'}\n\n` +
+      `Can we continue the discussion?`;
+
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pt-20">
@@ -117,13 +134,18 @@ const Flights = () => {
                   {/* Right: Price & Action (Blue Background) */}
                   <div className="bg-slate-900 p-6 md:w-64 flex flex-col justify-center items-center text-center border-l border-slate-800">
                     <p className="text-slate-400 text-sm mb-1">Starting from</p>
-                    <p className="text-3xl font-bold text-white mb-6">₦{flight.price.toLocaleString()}</p>
-                    <button 
-                      onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}
+                    {/* Using optional chaining and fallback for price */}
+                    <p className="text-3xl font-bold text-white mb-6">₦{flight.price ? flight.price.toLocaleString() : '0'}</p>
+                    
+                    {/* Replaced button with a tag for WhatsApp linking */}
+                    <a 
+                      href={generateWhatsAppLink(flight)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
                     >
                       Book Ticket <ArrowRight className="w-4 h-4" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

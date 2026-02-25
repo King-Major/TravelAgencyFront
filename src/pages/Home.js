@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import ContactForm from '../components/ContactForm'; // Importing your form
 
 const Home = () => {
+  // Added 'path' to each service object to tell the Link where to go
   const services = [
-    { title: "Intl. Flights", icon: Plane, desc: "Best rates on global airlines.", img: "https://images.unsplash.com/photo-1542296332-2e44a996aa0d?w=500&auto=format&fit=crop" },
-    { title: "Luxury Hotels", icon: Hotel, desc: "Handpicked premium stays.", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop" },
-    { title: "World Tours", icon: Globe, desc: "Curated experiences.", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500&auto=format&fit=crop" },
-    { title: "Visa Expert", icon: CreditCard, desc: "99% Success rate processing.", img: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=500&auto=format&fit=crop" }
+    { title: "Intl. Flights", icon: Plane, desc: "Best rates on global airlines.", img: "https://images.unsplash.com/photo-1542296332-2e44a996aa0d?w=500&auto=format&fit=crop", path: "/flights" },
+    { title: "Luxury Hotels", icon: Hotel, desc: "Handpicked premium stays.", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop", path: "/hotels" },
+    { title: "World Tours", icon: Globe, desc: "Curated experiences.", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500&auto=format&fit=crop", path: "/tours" },
+    { title: "Visa Expert", icon: CreditCard, desc: "99% Success rate processing.", img: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=500&auto=format&fit=crop", path: "/visa-info" }
   ];
 
   return (
@@ -62,7 +63,12 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, idx) => (
-              <div key={idx} className="group relative overflow-hidden rounded-2xl h-80 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300">
+              /* Replaced the wrapper <div> with a <Link> component */
+              <Link 
+                to={service.path} 
+                key={idx} 
+                className="group relative overflow-hidden rounded-2xl h-80 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 block"
+              >
                 <img src={service.img} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
                 
@@ -73,28 +79,37 @@ const Home = () => {
                   <h3 className="text-2xl font-bold text-white mb-1">{service.title}</h3>
                   <p className="text-white/80 text-sm mb-4">{service.desc}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* 3. REVIEWS */}
+{/* 3. REVIEWS */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <h2 className="text-3xl font-bold text-slate-900 text-center">Trusted by Travelers</h2>
         </div>
-        <div className="flex gap-6 overflow-x-auto pb-8 px-4 snap-x max-w-7xl mx-auto no-scrollbar">
+        {/* Added snap-mandatory for smoother stopping, reduced gap on mobile */}
+        <div className="flex gap-4 md:gap-6 overflow-x-auto pb-8 px-4 snap-x snap-mandatory max-w-7xl mx-auto no-scrollbar">
           {[1, 2, 3].map((item) => (
-            <div key={item} className="min-w-[300px] md:min-w-[400px] bg-slate-50 p-8 rounded-2xl snap-center shrink-0 border border-slate-100">
+            <div 
+              key={item} 
+              // Changed to 85vw for mobile, 300px for small tablets, 400px for desktop. 
+              // Changed padding to p-6 on mobile, p-8 on medium screens.
+              className="w-[85vw] sm:w-[300px] md:w-[400px] flex-none bg-slate-50 p-6 md:p-8 rounded-2xl snap-center border border-slate-100"
+            >
               <div className="flex text-orange-500 mb-4">
                 {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
               </div>
-              <p className="text-slate-700 italic mb-6">"Speed Up Travels lived up to their name. The visa process was incredibly fast, and the hotel they booked in Dubai was breathtaking."</p>
+              <p className="text-slate-700 italic mb-6 text-sm md:text-base">
+                "Speed Up Travels lived up to their name. The visa process was incredibly fast, and the hotel they booked in Dubai was breathtaking."
+              </p>
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-600">AO</div>
                 <div>
-                  <div className="font-bold text-slate-900">Aminat O.</div>
+                  <div className="font-bold text-slate-900 text-sm md:text-base">Aminat O.</div>
                   <div className="text-xs text-slate-500">Lagos, Nigeria</div>
                 </div>
               </div>

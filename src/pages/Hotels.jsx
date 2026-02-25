@@ -3,6 +3,8 @@ import { Hotel, MapPin, Star, Wifi, Coffee, Car, ArrowRight } from 'lucide-react
 import ContactForm from '../components/ContactForm';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
+// Define the WhatsApp number
+const WHATSAPP_NUMBER = "2347031199713";
 
 const Hotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -13,6 +15,7 @@ const Hotels = () => {
       .then(r => r.json())
       .then(data => {
         setHotels(data.data || []);
+        console.log(data.data)
         setLoading(false);
       })
       .catch(err => {
@@ -20,6 +23,25 @@ const Hotels = () => {
         setLoading(false);
       });
   }, []);
+
+  // Helper function to generate the dynamic WhatsApp link for hotels
+  const generateWhatsAppLink = (hotel) => {
+    // Safely join amenities if they exist, otherwise show 'N/A'
+    const amenitiesList = hotel.amenities && hotel.amenities.length > 0 
+      ? hotel.amenities.join(', ') 
+      : 'N/A';
+
+    const message = `Hello, I'm interested in booking a hotel room. Here are the details:\n\n` +
+      `🏨 *Hotel Name:* ${hotel.name || 'N/A'}\n` +
+      `📍 *Location:* ${hotel.destination || 'N/A'}\n` +
+      `🏢 *Address:* ${hotel.address || 'N/A'}\n` +
+      `✨ *Amenities:* ${amenitiesList}\n` +
+      `💰 *Price Range:* ₦${hotel.priceRange || 'N/A'}\n\n` +
+      `Are there rooms available for my dates?`;
+
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pt-20">
@@ -40,11 +62,12 @@ const Hotels = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {hotels.map((hotel, idx) => (
-              <div key={hotel._id || idx} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 group hover:-translate-y-2 transition-transform duration-300">
+              <div key={hotel._id || idx} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
                 {/* Image Area */}
-                <div className="relative h-64 overflow-hidden bg-slate-200">
-                  {hotel.photos ? (
-                    <img src={hotel.photos} alt={hotel.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="relative h-64 overflow-hidden bg-slate-200 flex-shrink-0">
+                  {hotel.photos && hotel.photos.length > 0 ? (
+                    // Using the first photo in the array if available
+                    <img src={hotel.photos[0]} alt={hotel.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   ) : (
                     <div className="flex items-center justify-center h-full text-slate-400">
                         <Hotel className="w-12 h-12" />
@@ -57,7 +80,7 @@ const Hotels = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="text-xl font-bold text-slate-900 leading-tight mb-1">{hotel.name}</h3>
@@ -71,7 +94,7 @@ const Hotels = () => {
                   <p className="text-sm text-slate-500 mb-6 line-clamp-2">{hotel.address}</p>
 
                   {/* Amenities (Mock for design) */}
-                  <div className="flex gap-4 mb-6 pt-4 border-t border-slate-100">
+                  <div className="flex gap-4 mb-6 pt-4 border-t border-slate-100 mt-auto">
                     <div className="flex flex-col items-center text-slate-400">
                         <Wifi className="w-4 h-4 mb-1" />
                         <span className="text-[10px]">Wifi</span>
@@ -86,17 +109,22 @@ const Hotels = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between pt-4">
                     <div>
                       <span className="text-xs text-slate-400 block">Per Night</span>
+                      {/* Price range is already a string like "2000 - 30000", so we leave it as is */}
                       <span className="text-2xl font-bold text-orange-600">₦{hotel.priceRange}</span>
                     </div>
-                    <button 
-                      onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}
-                      className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-colors"
+                    
+                    {/* Replaced button with a tag for WhatsApp linking */}
+                    <a 
+                      href={generateWhatsAppLink(hotel)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-colors inline-block text-center"
                     >
                       Reserve
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

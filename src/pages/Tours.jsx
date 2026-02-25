@@ -3,6 +3,8 @@ import { Compass, Clock, MapPin, Users, ArrowRight } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
+// Define the WhatsApp number
+const WHATSAPP_NUMBER = "2347031199713";
 
 const Tours = () => {
   const [tours, setTours] = useState([]);
@@ -14,6 +16,7 @@ const Tours = () => {
       .then(r => r.json())
       .then(data => {
         setTours(data.data || []);
+        console.log(data.data)
         setLoading(false);
       })
       .catch(err => {
@@ -21,6 +24,19 @@ const Tours = () => {
         setLoading(false);
       });
   }, []);
+
+  // Helper function to generate the dynamic WhatsApp link for tours
+  const generateWhatsAppLink = (tour) => {
+    const message = `Hello, I'm interested in booking a tour package. Here are the details:\n\n` +
+      `🌍 *Tour Name:* ${tour.title || 'N/A'}\n` +
+      `📍 *Destination:* ${tour.destination || 'N/A'}\n` +
+      `⏱ *Duration:* ${tour.duration || 'N/A'}\n` +
+      `💰 *Price:* ₦${tour.price ? Number(tour.price).toLocaleString() : 'N/A'}\n\n` +
+      `Can you provide more information or help me book this?`;
+
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pt-20">
@@ -86,14 +102,19 @@ const Tours = () => {
                   <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-100">
                     <div>
                       <span className="text-xs text-slate-400 uppercase font-bold tracking-wider">Total Price</span>
-                      <div className="text-2xl font-black text-slate-900">₦{tour.price.toLocaleString()}</div>
+                      {/* Added Number() to safely handle string prices like "300000" */}
+                      <div className="text-2xl font-black text-slate-900">₦{Number(tour.price).toLocaleString()}</div>
                     </div>
-                    <button 
-                      onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}
-                      className="bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105"
+                    
+                    {/* Replaced button with a tag for WhatsApp linking */}
+                    <a 
+                      href={generateWhatsAppLink(tour)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105 flex items-center justify-center"
                     >
                       <ArrowRight className="w-6 h-6" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
