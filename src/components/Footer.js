@@ -16,9 +16,9 @@ const Footer = () => {
             The fastest and most reliable way to see the world. Connecting you to luxury stays and global destinations with excellence.
           </p>
           <div className="flex space-x-4 pt-2">
-            <a href="#" className="hover:text-orange-500 transition-colors"><Instagram size={20} /></a>
-            <a href="#" className="hover:text-orange-500 transition-colors"><Twitter size={20} /></a>
-            <a href="#" className="hover:text-orange-500 transition-colors"><Facebook size={20} /></a>
+            <a href="https://www.instagram.com/speeduptravelandtour" className="hover:text-orange-500 transition-colors"><Instagram size={20} /></a>
+            {/* <a href="#" className="hover:text-orange-500 transition-colors"><Twitter size={20} /></a> */}
+            <a href="https://www.facebook.com/share/1DeUq4MCLG/" className="hover:text-orange-500 transition-colors"><Facebook size={20} /></a>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ const Footer = () => {
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
             <li><Link to="/visa-info" className="hover:text-white transition-colors">Visa Services</Link></li>
-            <li><a href="/#tours" className="hover:text-white transition-colors">Featured Tours</a></li>
+            <li><a href="/tours" className="hover:text-white transition-colors">Featured Tours</a></li>
             <li><a href="/#contact" className="hover:text-white transition-colors">Contact Us</a></li>
           </ul>
         </div>
@@ -39,11 +39,11 @@ const Footer = () => {
           <ul className="space-y-4 text-sm">
             <li className="flex items-center space-x-3">
               <MapPin size={18} className="text-orange-500" />
-              <span>Lagos • Abuja • Port Harcourt</span>
+              <span>Lagos • Nigeria</span>
             </li>
             <li className="flex items-center space-x-3">
               <Phone size={18} className="text-orange-500" />
-              <span>+234 800 SPEEDUP</span>
+              <span>+234 703-119-9713</span>
             </li>
             <li className="flex items-center space-x-3">
               <Mail size={18} className="text-orange-500" />
