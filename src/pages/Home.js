@@ -6,7 +6,7 @@ import ContactForm from '../components/ContactForm'; // Importing your form
 const Home = () => {
   // Added 'path' to each service object to tell the Link where to go
   const services = [
-    { title: "Intl. Flights", icon: Plane, desc: "Best rates on global airlines.", img: "https://images.unsplash.com/photo-1542296332-2e44a996aa0d?w=500&auto=format&fit=crop", path: "/flights" },
+    { title: "Intl. Flights", icon: Plane, desc: "Best rates on global airlines.", img: "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?w=500&auto=format&fit=crop", path: "/flights" },
     { title: "Luxury Hotels", icon: Hotel, desc: "Handpicked premium stays.", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop", path: "/hotels" },
     { title: "World Tours", icon: Globe, desc: "Curated experiences.", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500&auto=format&fit=crop", path: "/tours" },
     { title: "Visa Expert", icon: CreditCard, desc: "99% Success rate processing.", img: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=500&auto=format&fit=crop", path: "/visa-info" }
