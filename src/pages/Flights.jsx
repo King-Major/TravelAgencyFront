@@ -51,7 +51,7 @@ const Flights = () => {
           </div>
           
           {/* Mock Search Bar for Professional Look */}
-          <div className="mt-8 bg-white p-2 rounded-xl flex flex-col md:flex-row gap-2 shadow-xl max-w-4xl">
+          {/* <div className="mt-8 bg-white p-2 rounded-xl flex flex-col md:flex-row gap-2 shadow-xl max-w-4xl">
             <div className="flex-1 flex items-center px-4 py-3 bg-slate-50 rounded-lg border border-slate-200">
               <Search className="w-5 h-5 text-slate-400 mr-3" />
               <input type="text" placeholder="Where are you flying to?" className="bg-transparent w-full outline-none text-slate-700" />
@@ -63,7 +63,7 @@ const Flights = () => {
             <button className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-bold transition-all">
               Search Flights
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

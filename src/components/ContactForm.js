@@ -4,27 +4,62 @@ import { Send, Loader2 } from 'lucide-react';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
 
+const INQUIRY_OPTIONS = [
+  { id: 'flight', label: 'Flight Booking' },
+  { id: 'hotel', label: 'Hotel Reservation' },
+  { id: 'tour', label: 'Tour Package' },
+  { id: 'visa', label: 'Visa Assistance' },
+  { id: 'custom-service', label: 'Custom Service' },
+  { id: 'general', label: 'General Inquiry' }
+];
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', inquiryType: 'flight',
+    name: '', email: '', phone: '', 
+    inquiryType: [], // Changed to an empty array
     destinations: '', travelDates: '', travelersCount: '', budget: '',
     visaCountry: '', visaType: '', specialRequests: ''
   });
 
-  const [status, setStatus] = useState('idle'); // idle, sending, success, error
+  const [status, setStatus] = useState('idle'); 
+  const [formError, setFormError] = useState('');
+
+  // Helper function to toggle inquiry types in the array
+  const handleTypeToggle = (typeId) => {
+    setFormData((prev) => {
+      const currentTypes = prev.inquiryType;
+      if (currentTypes.includes(typeId)) {
+        // Remove if already selected
+        return { ...prev, inquiryType: currentTypes.filter(id => id !== typeId) };
+      } else {
+        // Add if not selected
+        return { ...prev, inquiryType: [...currentTypes, typeId] };
+      }
+    });
+    setFormError(''); // Clear error if they select something
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Client-side validation: ensure at least one type is selected
+    if (formData.inquiryType.length === 0) {
+      setFormError('Please select at least one inquiry type.');
+      return;
+    }
+
     setStatus('sending');
+    setFormError('');
 
     try {
       await axios.post(`${API_URL}/inquiries`, {
         ...formData,
         destinations: formData.destinations ? formData.destinations.split(',').map(d => d.trim()) : []
       });
+      
       setStatus('success');
       setFormData({
-        name: '', email: '', phone: '', inquiryType: 'flight',
+        name: '', email: '', phone: '', inquiryType: [], // Reset to empty array
         destinations: '', travelDates: '', travelersCount: '', budget: '',
         visaCountry: '', visaType: '', specialRequests: ''
       });
@@ -51,10 +86,17 @@ const ContactForm = () => {
                 </div>
             )}
             
-            {/* ERROR MESSAGE */}
+            {/* API ERROR MESSAGE */}
             {status === 'error' && (
                 <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-center font-medium animate-in fade-in">
                     ❌ Something went wrong. Please check your connection and try again.
+                </div>
+            )}
+
+            {/* VALIDATION ERROR MESSAGE */}
+            {formError && (
+                <div className="mb-8 p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-800 text-center font-medium animate-in fade-in">
+                    ⚠️ {formError}
                 </div>
             )}
 
@@ -66,13 +108,29 @@ const ContactForm = () => {
                 
                 <div className="grid md:grid-cols-2 gap-6">
                     <input required placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full p-4 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-orange-500 transition-all" />
-                    <select value={formData.inquiryType} onChange={e => setFormData({...formData, inquiryType: e.target.value})} className="w-full p-4 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-orange-500 transition-all">
-                        <option value="flight">Flight Booking</option>
-                        <option value="hotel">Hotel Reservation</option>
-                        <option value="tour">Tour Package</option>
-                        <option value="visa">Visa Assistance</option>
-                        <option value="general">General Inquiry</option>
-                    </select>
+                </div>
+
+                {/* MULTI-SELECT CHECKBOX GRID */}
+                <div className="space-y-3">
+                    <label className="text-sm font-semibold text-slate-700 ml-1">What do you need help with? (Select all that apply)</label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {INQUIRY_OPTIONS.map((option) => {
+                        const isSelected = formData.inquiryType.includes(option.id);
+                        return (
+                          <div 
+                            key={option.id}
+                            onClick={() => handleTypeToggle(option.id)}
+                            className={`cursor-pointer p-4 rounded-xl border-2 transition-all flex items-center justify-center text-center ${
+                              isSelected 
+                                ? 'border-orange-500 bg-orange-50 text-orange-700 font-semibold' 
+                                : 'border-slate-100 bg-slate-50 text-slate-600 hover:border-orange-200'
+                            }`}
+                          >
+                            {option.label}
+                          </div>
+                        );
+                      })}
+                    </div>
                 </div>
 
                 <textarea placeholder="Destinations (e.g. Dubai, London)" value={formData.destinations} onChange={e => setFormData({...formData, destinations: e.target.value})} className="w-full p-4 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-orange-500 transition-all" rows="2" />
@@ -83,10 +141,11 @@ const ContactForm = () => {
                     <input placeholder="Budget (Optional)" value={formData.budget} onChange={e => setFormData({...formData, budget: e.target.value})} className="w-full p-4 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-orange-500 transition-all" />
                 </div>
 
-                {formData.inquiryType === 'visa' && (
-                    <div className="grid md:grid-cols-2 gap-6 bg-orange-50 p-6 rounded-xl">
-                        <input placeholder="Target Country" value={formData.visaCountry} onChange={e => setFormData({...formData, visaCountry: e.target.value})} className="w-full p-4 bg-white rounded-xl border border-orange-200 focus:ring-2 focus:ring-orange-500" />
-                        <input placeholder="Visa Type (Tourist, Student)" value={formData.visaType} onChange={e => setFormData({...formData, visaType: e.target.value})} className="w-full p-4 bg-white rounded-xl border border-orange-200 focus:ring-2 focus:ring-orange-500" />
+                {/* CONDITIONALLY RENDER IF 'VISA' IS IN THE ARRAY */}
+                {formData.inquiryType.includes('visa') && (
+                    <div className="grid md:grid-cols-2 gap-6 bg-orange-50 p-6 rounded-xl border border-orange-100 animate-in slide-in-from-top-4">
+                        <input required placeholder="Target Country for Visa" value={formData.visaCountry} onChange={e => setFormData({...formData, visaCountry: e.target.value})} className="w-full p-4 bg-white rounded-xl border-none focus:ring-2 focus:ring-orange-500" />
+                        <input required placeholder="Visa Type (Tourist, Student, etc.)" value={formData.visaType} onChange={e => setFormData({...formData, visaType: e.target.value})} className="w-full p-4 bg-white rounded-xl border-none focus:ring-2 focus:ring-orange-500" />
                     </div>
                 )}
 

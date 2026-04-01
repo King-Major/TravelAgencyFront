@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Zap, Plane, Hotel, Globe, CreditCard, Star, ChevronRight, Clock, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ContactForm from '../components/ContactForm'; // Importing your form
+import CorporateServices from '../components/CorporateServices';
 
 const Home = () => {
   // Added 'path' to each service object to tell the Link where to go
@@ -29,12 +30,12 @@ const Home = () => {
           <div className="max-w-3xl space-y-8">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
               <Zap className="w-4 h-4 text-orange-400" />
-              <span className="text-orange-50 font-medium text-sm">Reliable. Secure. Instant.</span>
+              <span className="text-orange-50 font-medium text-sm">Reliable. Secure. Exerptise Knowledge.</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
-              The <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Fastest</span> Way<br />
-              To See The World.
+              Architecting  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Seamless</span><br />
+              journeys, 24/7..
             </h1>
             
             <p className="text-lg md:text-xl text-slate-300 max-w-xl leading-relaxed">
@@ -117,7 +118,7 @@ const Home = () => {
           ))}
         </div>
       </section>
-
+      <CorporateServices/>
       {/* 4. CONTACT FORM COMPONENT */}
       <div id="contact" className="bg-slate-50">
         <ContactForm />
