@@ -3,6 +3,7 @@ import { ArrowRight, Zap, Plane, Hotel, Globe, CreditCard, Star, ChevronRight, C
 import { Link } from 'react-router-dom';
 import ContactForm from '../components/ContactForm'; // Importing your form
 import CorporateServices from '../components/CorporateServices';
+import { TypeAnimation } from 'react-type-animation';
 
 const Home = () => {
   // Added 'path' to each service object to tell the Link where to go
@@ -16,7 +17,7 @@ const Home = () => {
   return (
     <>
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center bg-slate-900 -mt-20">
+     <section className="relative min-h-[90vh] flex items-center bg-slate-900 -mt-20">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop" 
@@ -30,11 +31,26 @@ const Home = () => {
           <div className="max-w-3xl space-y-8">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
               <Zap className="w-4 h-4 text-orange-400" />
-              <span className="text-orange-50 font-medium text-sm">Reliable. Secure. Exerptise Knowledge.</span>
+              <span className="text-orange-50 font-medium text-sm">Reliable. Secure. Expert Knowledge.</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
-              Curating  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Seamless</span><br />
+              {/* 2. Replaced "Curating" with TypeAnimation */}
+              <TypeAnimation
+                sequence={[
+                  'Curating',
+                  2000, 
+                  'Architecting',
+                  2000,
+                  'Planning',
+                  2000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                className="inline-block min-w-[280px]" // Prevents layout shift
+              />{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Seamless</span><br />
               journeys, 24/7..
             </h1>
             
