@@ -34,7 +34,7 @@ const Home = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
-              Architecting  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Seamless</span><br />
+              Curating  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Seamless</span><br />
               journeys, 24/7..
             </h1>
             
