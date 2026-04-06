@@ -103,11 +103,7 @@ const Navbar = () => {
 
           <div className="border-t border-slate-100 mx-2 my-2"></div>
 
-          <div className="px-2 py-4">
-             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Support</p>
-             {/* UPDATED: Removed isHash={true} and changed path to /contact */}
-             <MobileMenuItem to="/contact" icon={Phone} label="Contact Us" />
-          </div>
+         
 
           <div className="p-4">
             {/* UPDATED: Changed NavHashLink to standard Link for /contact */}
