@@ -11,7 +11,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -20,10 +19,8 @@ const Navbar = () => {
 
   const closeMenu = () => setIsOpen(false);
 
-  // Check if we are on the home page for transparent nav effect
   const isHome = location.pathname === '/';
   
-  // Dynamic classes based on scroll/page
   const navClass = scrolled || !isHome || isOpen
     ? "bg-white/95 backdrop-blur-md shadow-sm py-3" 
     : "bg-transparent py-5";
@@ -31,12 +28,11 @@ const Navbar = () => {
   const textClass = scrolled || !isHome || isOpen ? "text-slate-900" : "text-white";
   const iconClass = scrolled || !isHome || isOpen ? "text-slate-900" : "text-white";
 
-  // Mobile Menu Item Component for reusability
   const MobileMenuItem = ({ to, icon: Icon, label, isHash = false }) => {
     const LinkComponent = isHash ? NavHashLink : Link;
     return (
       <LinkComponent 
-        smooth 
+        smooth={isHash ? "true" : undefined} 
         to={to} 
         onClick={closeMenu} 
         className="group flex items-center justify-between p-4 rounded-xl hover:bg-orange-50 transition-all duration-200 border border-transparent hover:border-orange-100"
@@ -76,11 +72,12 @@ const Navbar = () => {
             <NavHashLink smooth to="/tours" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Tours</NavHashLink>
             <Link to="/visa-info" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Visa Info</Link>
             
-            <NavHashLink smooth to="/#contact">
-              <button className="px-6 py-2.5 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-full font-bold text-sm shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all">
+            {/* UPDATED: Changed NavHashLink to standard Link for /contact */}
+            <Link to="/contact">
+              <button className="px-6 py-2.5 bg-gradient-to-r bg-black text-white rounded-full font-bold text-sm shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all">
                 Plan My Trip
               </button>
-            </NavHashLink>
+            </Link>
           </div>
 
           {/* MOBILE MENU TOGGLE */}
@@ -90,7 +87,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MOBILE MENU REDESIGN */}
+      {/* MOBILE MENU */}
       <div className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 shadow-2xl transition-all duration-300 ease-in-out origin-top overflow-hidden ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col p-4 space-y-2 h-[calc(100vh-80px)] overflow-y-auto pb-20">
           
@@ -108,15 +105,17 @@ const Navbar = () => {
 
           <div className="px-2 py-4">
              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Support</p>
-             <MobileMenuItem to="/#contact" icon={Phone} label="Contact Us" isHash={true} />
+             {/* UPDATED: Removed isHash={true} and changed path to /contact */}
+             <MobileMenuItem to="/contact" icon={Phone} label="Contact Us" />
           </div>
 
           <div className="p-4">
-            <NavHashLink smooth to="/#contact" onClick={closeMenu}>
+            {/* UPDATED: Changed NavHashLink to standard Link for /contact */}
+            <Link to="/contact" onClick={closeMenu}>
               <button className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-bold text-lg shadow-xl shadow-orange-200 active:scale-95 transition-all">
                 Get Started
               </button>
-            </NavHashLink>
+            </Link>
           </div>
           
         </div>

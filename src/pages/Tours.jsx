@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Compass, Clock, MapPin, Users, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Compass, Clock, MapPin, Users, ArrowRight, Info, HeadphonesIcon } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
@@ -54,12 +55,27 @@ const Tours = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        
+        {/* Booking Funnel Expectation Banner */}
+        <div className="mb-8 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start sm:items-center gap-4">
+          <div className="p-2 bg-blue-100 rounded-full shrink-0">
+            <Info className="w-5 h-5 text-blue-600" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-blue-900">Seamless Booking Experience</h3>
+            <p className="text-sm text-blue-800 mt-1">
+              Found your perfect adventure? Clicking the <strong>arrow button</strong> will connect you directly with our friendly representatives on WhatsApp to quickly finalize your details and secure your spot.
+            </p>
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
           </div>
         ) : tours.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-slate-200">
+            <Compass className="w-16 h-16 text-slate-300 mx-auto mb-4" />
             <p className="text-xl text-slate-500">New tour packages are being curated. Check back soon!</p>
           </div>
         ) : (
@@ -106,7 +122,7 @@ const Tours = () => {
                       <div className="text-2xl font-black text-slate-900">₦{Number(tour.price).toLocaleString()}</div>
                     </div>
                     
-                    {/* Replaced button with a tag for WhatsApp linking */}
+                    {/* External Link for WhatsApp */}
                     <a 
                       href={generateWhatsAppLink(tour)}
                       target="_blank"
@@ -121,11 +137,33 @@ const Tours = () => {
             ))}
           </div>
         )}
+
+        {/* Can't Find What You're Looking For Banner */}
+        <div className="mt-12 bg-white border border-slate-200 rounded-2xl p-8 sm:flex sm:items-center sm:justify-between shadow-sm">
+          <div className="sm:text-left mb-6 sm:mb-0 flex-1 pr-4">
+            <div className="flex items-center gap-3 mb-2">
+              <HeadphonesIcon className="w-6 h-6 text-orange-600" />
+              <h3 className="text-xl font-bold text-slate-900">Don't see your preferred destination?</h3>
+            </div>
+            <p className="text-slate-600">
+              No problem! Let us know your specific travel dreams. Fill out our quick request form and our dedicated travel experts will get back to you with tailored tour options <strong>within 24 hours</strong>.
+            </p>
+          </div>
+          
+          {/* React Router Link tag for internal navigation */}
+          <Link 
+            to="/contact" 
+            className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-lg transition-colors whitespace-nowrap"
+          >
+            Request Custom Tour
+          </Link>
+        </div>
+
       </div>
 
-      <div id="contact-section" className="bg-white border-t border-slate-200">
+      {/* <div id="contact-section" className="bg-white border-t border-slate-200">
          <ContactForm />
-      </div>
+      </div> */}
     </div>
   );
 };

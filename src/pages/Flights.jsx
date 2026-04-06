@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plane, Calendar, Clock, ArrowRight, Search, Filter } from 'lucide-react';
-import ContactForm from '../components/ContactForm';
+import { Plane, Calendar, Clock, ArrowRight, Filter, Info, HeadphonesIcon } from 'lucide-react';
 
 const API_URL = 'https://travelagency-xfli.onrender.com/api';
 // Define the WhatsApp number here
@@ -15,7 +14,7 @@ const Flights = () => {
       .then(r => r.json())
       .then(data => {
         setFlights(data.data || []);
-        console.log(data)
+        console.log(data);
         setLoading(false);
       })
       .catch(err => {
@@ -49,26 +48,25 @@ const Flights = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white">Find Your Next Flight</h1>
           </div>
-          
-          {/* Mock Search Bar for Professional Look */}
-          {/* <div className="mt-8 bg-white p-2 rounded-xl flex flex-col md:flex-row gap-2 shadow-xl max-w-4xl">
-            <div className="flex-1 flex items-center px-4 py-3 bg-slate-50 rounded-lg border border-slate-200">
-              <Search className="w-5 h-5 text-slate-400 mr-3" />
-              <input type="text" placeholder="Where are you flying to?" className="bg-transparent w-full outline-none text-slate-700" />
-            </div>
-            <div className="flex-1 flex items-center px-4 py-3 bg-slate-50 rounded-lg border border-slate-200">
-              <Calendar className="w-5 h-5 text-slate-400 mr-3" />
-              <input type="text" placeholder="Travel Date" className="bg-transparent w-full outline-none text-slate-700" />
-            </div>
-            <button className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-bold transition-all">
-              Search Flights
-            </button>
-          </div> */}
         </div>
       </div>
 
-      {/* Flights Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Flights Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        {/* Booking Funnel Expectation Banner */}
+        <div className="mb-8 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start sm:items-center gap-4">
+          <div className="p-2 bg-blue-100 rounded-full shrink-0">
+            <Info className="w-5 h-5 text-blue-600" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-blue-900">Seamless Booking Experience</h3>
+            <p className="text-sm text-blue-800 mt-1">
+              Found your perfect flight? Clicking <strong>"Book Ticket"</strong> will connect you directly with our friendly representatives on WhatsApp to quickly finalize your details and secure your seat.
+            </p>
+          </div>
+        </div>
+
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-slate-900">Available Routes</h2>
           <button className="flex items-center space-x-2 text-slate-500 hover:text-orange-600 transition-colors">
@@ -77,6 +75,7 @@ const Flights = () => {
           </button>
         </div>
 
+        {/* Flights Grid */}
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
@@ -131,13 +130,11 @@ const Flights = () => {
                     </div>
                   </div>
 
-                  {/* Right: Price & Action (Blue Background) */}
+                  {/* Right: Price & Action */}
                   <div className="bg-slate-900 p-6 md:w-64 flex flex-col justify-center items-center text-center border-l border-slate-800">
                     <p className="text-slate-400 text-sm mb-1">Starting from</p>
-                    {/* Using optional chaining and fallback for price */}
                     <p className="text-3xl font-bold text-white mb-6">₦{flight.price ? flight.price.toLocaleString() : '0'}</p>
                     
-                    {/* Replaced button with a tag for WhatsApp linking */}
                     <a 
                       href={generateWhatsAppLink(flight)}
                       target="_blank"
@@ -152,11 +149,28 @@ const Flights = () => {
             ))}
           </div>
         )}
-      </div>
 
-      {/* Contact Section for Booking */}
-      <div id="contact-section" className="bg-white border-t border-slate-200">
-         <ContactForm />
+        {/* Can't Find What You're Looking For Banner */}
+        <div className="mt-12 bg-white border border-slate-200 rounded-2xl p-8 sm:flex sm:items-center sm:justify-between shadow-sm">
+          <div className="sm:text-left mb-6 sm:mb-0 flex-1 pr-4">
+            <div className="flex items-center gap-3 mb-2">
+              <HeadphonesIcon className="w-6 h-6 text-orange-600" />
+              <h3 className="text-xl font-bold text-slate-900">Don't see your preferred flight?</h3>
+            </div>
+            <p className="text-slate-600">
+              No problem! Let us know your specific travel needs. Fill out our quick request form and our dedicated travel experts will get back to you with tailored flight options <strong>within 24 hours</strong>.
+            </p>
+          </div>
+          
+          {/* Note: Update the href below to match your actual contact page route. */}
+          {/* If you are using React Router, you can swap this <a> tag for a <Link to="/contact"> */}
+          <a 
+            href="/contact" 
+            className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-lg transition-colors whitespace-nowrap"
+          >
+            Request Custom Flight
+          </a>
+        </div>
       </div>
     </div>
   );

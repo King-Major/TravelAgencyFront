@@ -10,10 +10,10 @@ const Footer = () => {
         {/* Brand */}
         <div className="space-y-4">
           <h3 className="text-2xl font-black text-white tracking-tight">
-            SPEEDUP <span className="text-orange-500">TRAVELS</span>
+            SPEEDUP <span className="text-orange-500">TRAVELS</span> & TOURS
           </h3>
           <p className="text-sm leading-relaxed text-slate-400">
-            The fastest and most reliable way to see the world. Connecting you to luxury stays and global destinations with excellence.
+            Experience seamless travel planning. From express visa processing to luxury flight bookings, we handle the logistics so you can handle the adventure.
           </p>
           <div className="flex space-x-4 pt-2">
             <a href="https://www.instagram.com/speeduptravelandtour" className="hover:text-orange-500 transition-colors"><Instagram size={20} /></a>
@@ -28,9 +28,13 @@ const Footer = () => {
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
             <li><Link to="/visa-info" className="hover:text-white transition-colors">Visa Services</Link></li>
+               <li><a href="/hotels" className="hover:text-white transition-colors">Hotels</a></li>
             <li><a href="/tours" className="hover:text-white transition-colors">Featured Tours</a></li>
-            <li><a href="/#contact" className="hover:text-white transition-colors">Contact Us</a></li>
-          </ul>
+            <li><a href="/contact" className="hover:text-white transition-colors">Contact Us</a></li>
+         
+       
+           </ul>
+          
         </div>
 
         {/* Contact */}
@@ -53,7 +57,7 @@ const Footer = () => {
         </div>
 
         {/* Newsletter */}
-        <div>
+        {/* <div>
           <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Newsletter</h4>
           <p className="text-sm mb-4 text-slate-400">Get the latest travel deals first.</p>
           <div className="flex">
@@ -66,7 +70,7 @@ const Footer = () => {
               <Send size={18} className="text-white" />
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
