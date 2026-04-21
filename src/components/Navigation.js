@@ -70,6 +70,7 @@ const Navbar = () => {
             <NavHashLink smooth to="/flights" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Flights</NavHashLink>
             <NavHashLink smooth to="/hotels" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Hotels</NavHashLink>
             <NavHashLink smooth to="/tours" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Tours</NavHashLink>
+             <NavHashLink smooth to="/About" className={`font-medium hover:text-orange-500 transition ${textClass}`}>About</NavHashLink>
             <Link to="/visa-info" className={`font-medium hover:text-orange-500 transition ${textClass}`}>Visa Info</Link>
             
             {/* UPDATED: Changed NavHashLink to standard Link for /contact */}
@@ -97,6 +98,7 @@ const Navbar = () => {
               <MobileMenuItem to="/flights" icon={Plane} label="Find Flights" isHash={true} />
               <MobileMenuItem to="/hotels" icon={Hotel} label="Luxury Hotels" isHash={true} />
               <MobileMenuItem to="/tours" icon={Compass} label="Tours & Packages" isHash={true} />
+              <MobileMenuItem to="/About" icon={Compass} label="Know US" isHash={true} />
               <MobileMenuItem to="/visa-info" icon={FileText} label="Visa Assistance" />
             </div>
           </div>

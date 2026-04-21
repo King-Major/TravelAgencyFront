@@ -9,6 +9,7 @@ import Flights from './pages/Flights';
 import Hotels from './pages/Hotels';
 import Tours from './pages/Tours';
 import ContactForm from './components/ContactForm';
+import About from './pages/About';
 
 // Scroll to top helper
 function ScrollToTop() {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/flights" element={<Flights />} />
             <Route path="/hotels" element={<Hotels />} />
             <Route path="/tours" element={<Tours />} />
+             <Route path="/about" element={<About/>} />
             
             {/* Contact Page Route */}
             <Route 
