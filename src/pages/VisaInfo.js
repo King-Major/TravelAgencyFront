@@ -90,9 +90,61 @@ const VisaInfo = () => {
       ],
       notes: []
     },
+    'uk': {
+      country: "United Kingdom",
+      type: "Visitor Visa",
+      processingTime: "Varies by application",
+      requirements: [
+        "Valid passport or travel document (must be valid for the whole of your stay)",
+        "Proof you'll leave the UK at the end of your visit",
+        "Proof you're able to support yourself and your dependants (or have external funding)",
+        "Proof you're able to pay for your return or onward journey (or have external funding)"
+      ],
+      notes: [
+        "You must not live in the UK for extended periods through frequent or successive visits, or make the UK your main home."
+      ]
+    },
+    'canada': {
+      country: "Canada",
+      type: "Visitor Visa",
+      processingTime: "Varies by embassy",
+      requirements: [
+        "Valid passport (make sure it isn't due to expire before the end of your visit)",
+        "National identity card",
+        "Letter of invitation from your host and proof of your relationship to them",
+        "Employment information (name, address, tenure; employer letter recommended)",
+        "Financial information (bank/investment statements for the past six months)",
+        "Trip details (arrival/departure dates, accommodation, planned itinerary)",
+        "Travel history (past 5 years of travel, and places lived outside home country for 6+ months)"
+      ],
+      notes: [
+        "Core Eligibility: You must be in good health and not have a criminal record.",
+        "You must demonstrate strong ties to your home country and clear intent to leave Canada.",
+        "Ensure you have enough verifiable funds for your stay."
+      ]
+    },
+    'schengen': {
+      country: "Schengen Area",
+      type: "Visitor or Tourist Visa",
+      processingTime: "Standard Processing",
+      requirements: [
+        "Completed and signed Application Form (often via platforms like VFS Global)",
+        "Two recent Passport photos",
+        "Valid Passport (valid for at least 3 months beyond return date, with at least 2 blank pages)",
+        "Proof of Travel (Confirmed return flights/travel itinerary)",
+        "Accommodation Proof (Hotel bookings, rental agreement, or proof of private stay)",
+        "Financial Means (Last 3 months bank statements showing £40-£120/day, or sponsorship letter)",
+        "Travel Insurance (Valid for all Schengen states, €30,000 minimum coverage for medical/repatriation)",
+        "Employment Docs (Recent employer letter, payslips, or proof of business ownership)",
+        "Valid Residence Permit (If applying outside home country, usually needs 3+ months validity beyond return)"
+      ],
+      notes: [
+        "Visa Fee: Generally €90 (approx. £78) for adults, with reduced rates for children."
+      ]
+    },
     'general': {
       country: "Global Destinations",
-      type: "UK, USA, Canada, Schengen, Dubai, Australia, Turkey & More",
+      type: "USA, Dubai, Australia, Turkey & More",
       processingTime: "Varies by Embassy",
       requirements: [
         "Valid Passport (6+ months validity)",
@@ -145,6 +197,9 @@ const VisaInfo = () => {
               { id: 'sa-sticker', label: 'South Africa (Sticker)' },
               { id: 'zambia', label: 'Zambia' },
               { id: 'morocco', label: 'Morocco' },
+              { id: 'uk', label: 'UK' },
+              { id: 'canada', label: 'Canada' },
+              { id: 'schengen', label: 'Schengen' },
               { id: 'general', label: 'Other Destinations' }
             ].map((tab) => (
               <button
