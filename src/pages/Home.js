@@ -29,7 +29,7 @@ const Home = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
           <div className="max-w-3xl space-y-8">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-              <Zap className="w-4 h-4 text-orange-400" />
+              <Plane className="w-4 h-4 text-orange-400" />
               <span className="text-orange-50 font-medium text-sm">Reliable. Secure. Expert Knowledge.</span>
             </div>
             

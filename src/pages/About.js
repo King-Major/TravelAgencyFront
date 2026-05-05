@@ -36,7 +36,7 @@ const About = () => {
       name: "Aworeni Opeyemi Oluwaseun",
       role: "Co-Founder | Corporate Strategy & Experience Architect",
       bio: "Opeyemi is the visionary architect of the Speedup experience. A dedicated Business Coach and Corporate Travel Specialist, he bridges the gap between high-level business objectives and world-class leisure, ensuring every journey is a strategic asset.",
-      certs: ["Qatar Specialist", "Tour Planner", "Digital Marketing", "Project Management"],
+      certs: ["Travel sales specialist", "Tour Planner", "Business development"],
       img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop" // Placeholder
     }
   ];
