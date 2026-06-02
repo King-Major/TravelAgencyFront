@@ -10,10 +10,12 @@ import {
   MapPin,
   CreditCard
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const VisaInfo = () => {
   const [activeTab, setActiveTab] = useState('sa-evisa');
+
+  // ⚠️ REPLACE THIS WITH YOUR ACTUAL WHATSAPP NUMBER (include country code, no '+' or spaces)
+  const whatsappNumber = "1234567890"; 
 
   // Visa specific data based on the provided requirements
   const visaProtocols = {
@@ -161,6 +163,10 @@ const VisaInfo = () => {
 
   const currentProtocol = visaProtocols[activeTab];
 
+  // Dynamically generate the custom WhatsApp text message
+  const messageText = `Hello! I would like to start my application for the ${currentProtocol.country} (${currentProtocol.type}).`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+
   return (
     <>
       {/* HERO SECTION */}
@@ -279,12 +285,15 @@ const VisaInfo = () => {
                 <p className="text-slate-300 text-sm mb-8 relative z-10 leading-relaxed">
                   Our experts handle the heavy lifting, ensuring your documents meet the exact standards required by consular officials.
                 </p>
-                <Link 
-                  to="/contact" 
+                {/* WHATSAPP LINK REPLACEMENT */}
+                <a 
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white text-center rounded-xl font-bold shadow-lg hover:shadow-orange-500/25 hover:scale-[1.02] transition-all relative z-10"
                 >
                   Start My Application
-                </Link>
+                </a>
               </div>
 
               <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
