@@ -14,8 +14,8 @@ import {
 const VisaInfo = () => {
   const [activeTab, setActiveTab] = useState('sa-evisa');
 
-  // ⚠️ REPLACE THIS WITH YOUR ACTUAL WHATSAPP NUMBER (include country code, no '+' or spaces)
-  const whatsappNumber = "1234567890"; 
+
+  const whatsappNumber = "2347031199713"; 
 
   // Visa specific data based on the provided requirements
   const visaProtocols = {
