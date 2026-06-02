@@ -1,6 +1,8 @@
 import React from 'react';
 import { ArrowRight, Clock, Shield, Globe2, Target, CheckCircle2, Award, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import  Ope  from "../images/OPE.jpeg";
+import Founder from "../images/Founder.png"
 
 const About = () => {
   const pillars = [
@@ -30,14 +32,14 @@ const About = () => {
       role: "Co-Founder | Aviation & Logistics Strategist",
       bio: "Moyosola is the engine behind Speedup’s operational precision. As a certified Aviator and Travel Consultant with 7 years of 'boots-on-the-ground' experience and a Bachelor’s in Tourism & Hospitality Management, he treats every itinerary like a flight plan.",
       certs: ["IATA Certified", "Amadeus Expert", "Sabre Specialist"],
-      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop" // Placeholder
+      img: Ope,
     },
     {
       name: "Aworeni Opeyemi Oluwaseun",
       role: "Co-Founder | Corporate Strategy & Experience Architect",
       bio: "Opeyemi is the visionary architect of the Speedup experience. A dedicated Business Coach and Corporate Travel Specialist, he bridges the gap between high-level business objectives and world-class leisure, ensuring every journey is a strategic asset.",
       certs: ["Travel sales specialist", "Tour Planner", "Business development"],
-      img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop" // Placeholder
+      img: Founder
     }
   ];
 
@@ -152,55 +154,61 @@ const About = () => {
       </section>
 
       {/* 4. FOUNDERS SECTION */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">The Visionaries Behind the Movement</h2>
-            <p className="text-slate-600 mt-4 text-lg max-w-3xl mx-auto">
-              At the core of Speedup is a partnership built on a shared alma mater and a decade of combined expertise. They didn't just start a company; they engineered a new standard for global travel.
-            </p>
+ <section className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl md:text-4xl font-bold text-slate-900">The Visionaries Behind the Movement</h2>
+      <p className="text-slate-600 mt-4 text-lg max-w-3xl mx-auto">
+        At the core of Speedup is a partnership built on a shared alma mater and a decade of combined expertise. They didn't just start a company; they engineered a new standard for global travel.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {founders.map((founder, idx) => (
+        <div key={idx} className="flex flex-col bg-slate-50 rounded-3xl overflow-hidden shadow-md border border-slate-100 group">
+          
+          {/* RESTRUCTURED: No dark overlay on the face, taller aspect ratio */}
+          <div className="h-96 overflow-hidden relative bg-slate-200">
+            <img 
+              src={founder.img} 
+              alt={founder.name} 
+              className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-500"
+            />
+          </div>
+          
+          <div className="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              {/* Name and Role are now cleanly visible here */}
+              <div className="mb-4">
+                <h3 className="text-2xl font-bold text-slate-900 mb-1">{founder.name}</h3>
+                <p className="text-orange-600 font-semibold text-sm">{founder.role}</p>
+              </div>
+
+              <p className="text-slate-600 leading-relaxed mb-6">
+                {founder.bio}
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center">
+                <Award className="w-4 h-4 mr-2 text-orange-500" />
+                Certifications & Expertise
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {founder.certs.map((cert, cIdx) => (
+                  <span key={cIdx} className="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                    {cert}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {founders.map((founder, idx) => (
-              <div key={idx} className="flex flex-col bg-slate-50 rounded-3xl overflow-hidden shadow-md border border-slate-100">
-                <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src={founder.img} 
-                    alt={founder.name} 
-                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="text-2xl font-bold text-white mb-1">{founder.name}</h3>
-                    <p className="text-orange-400 font-medium text-sm">{founder.role}</p>
-                  </div>
-                </div>
-                
-                <div className="p-8 flex-1 flex flex-col justify-between">
-                  <p className="text-slate-600 leading-relaxed mb-6">
-                    {founder.bio}
-                  </p>
-                  
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center">
-                      <Award className="w-4 h-4 mr-2 text-orange-500" />
-                      Certifications & Expertise
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {founder.certs.map((cert, cIdx) => (
-                        <span key={cIdx} className="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                          {cert}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* 5. CTA SECTION */}
       <section className="relative py-20 bg-slate-900 overflow-hidden">
