@@ -32,14 +32,14 @@ const About = () => {
       role: "Co-Founder | Aviation & Logistics Strategist",
       bio: "Moyosola is the engine behind Speedup’s operational precision. As a certified Aviator and Travel Consultant with 7 years of 'boots-on-the-ground' experience and a Bachelor’s in Tourism & Hospitality Management, he treats every itinerary like a flight plan.",
       certs: ["IATA Certified", "Amadeus Expert", "Sabre Specialist"],
-      img: Ope,
+      img: Founder,
     },
     {
       name: "Aworeni Opeyemi Oluwaseun",
       role: "Co-Founder | Corporate Strategy & Experience Architect",
       bio: "Opeyemi is the visionary architect of the Speedup experience. A dedicated Business Coach and Corporate Travel Specialist, he bridges the gap between high-level business objectives and world-class leisure, ensuring every journey is a strategic asset.",
       certs: ["Travel sales specialist", "Tour Planner", "Business development"],
-      img: Founder
+      img: Ope,
     }
   ];
 
