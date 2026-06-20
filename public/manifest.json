@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "short_name": "SpeedUp",
   "name": "SpeedUp Travels and Tours",
+=======
+  "short_name": "Travel Agency",
+  "name": "Travel Agency",
+>>>>>>> e57440430ea4aa7bf3af8470d9d98c167f544560
   "icons": [
     {
       "src": "favicon.ico",
