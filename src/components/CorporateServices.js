@@ -125,12 +125,14 @@ const CorporateServicesSection = () => {
           
           <div className="flex flex-col items-center gap-4">
             {/* BLACK CTA BUTTON */}
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center justify-center px-10 py-4 bg-black text-white rounded-xl font-bold text-lg hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
-            >
-              Click Here to Fill the Form <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+        <a 
+          href="https://forms.gle/SAgEtKduyT4HswtJ9" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-10 py-4 bg-black text-white rounded-xl font-bold text-lg hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
+        >
+          Click Here to Fill the Form <ArrowRight className="ml-2 w-5 h-5" />
+        </a>
             
             <p className="text-slate-500 text-sm mt-2">
               Need immediate assistance? Call us directly at: <span className="text-slate-900 font-bold">+234 703-119-9713</span>
